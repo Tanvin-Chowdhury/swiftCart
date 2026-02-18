@@ -1,89 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>SwiftCart</title>
-
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet"/>
-  <link rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
+<body class="bg-gray-50">
 
-<body class="bg-gray-100">
+<!--NAVBAR-->
+<nav class="bg-white shadow sticky top-0 z-50">
+  <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+    
+    <h1 class="text-2xl font-bold text-[#0000D1]">SwiftCart</h1>
 
-<!-- ================= NAVBAR ================= -->
-<div class="navbar bg-white shadow px-6 md:px-12">
-  <div class="flex-1">
-    <h1 class="text-2xl font-bold text-indigo-600">SwiftCart</h1>
+    <ul class="hidden md:flex space-x-8 font-medium">
+      <li><a href="#" onclick="showHome()" class="hover:text-[#0000D1]">Home</a></li>
+      <li><a href="#" onclick="showProducts()" class="hover:text-[#0000D1]">Products</a></li>
+      <li><a href="#" class="hover:text-[#0000D1]">About</a></li>
+      <li><a href="#" class="hover:text-[#0000D1]">Contact</a></li>
+    </ul>
+
+    <button id="cartBtn" class="relative text-xl">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span id="cartCount"
+        class="absolute -top-2 -right-3 bg-red-500 text-white text-xs px-2 rounded-full">0</span>
+    </button>
+
   </div>
+</nav>
 
-  <div class="hidden md:flex gap-8 font-medium">
-    <a href="#">Home</a>
-    <a href="#products">Products</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
+<!-- HOME SECTION -->
+<div id="homeSection">
+
+<!--HERO-->
+<section class="relative h-[500px] flex items-center">
+    <img src="./Assets/banner-image.png"
+         class="absolute w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+    <div class="relative z-10 text-white px-16 max-w-xl">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        Best Collection For You
+      </h1>
+      <p class="mb-6 text-gray-200">
+        Discover the latest trends in fashion, electronics, and more.
+        Shop with confidence and style at SwiftCart.
+      </p>
+      <button class="btn bg-[#0000D1] hover:bg-indigo-700 text-white border-none">
+        Shop Now
+      </button>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="py-16 text-center">
+  <h2 class="text-3xl font-bold mb-10">Why Choose Us</h2>
+
+  <div class="container mx-auto grid md:grid-cols-4 gap-6 px-6">
+    
+    <div class="bg-white p-6 shadow rounded">
+      <i class="fa-solid fa-truck text-3xl text-indigo-600 mb-3"></i>
+      <h3 class="font-bold">Fast Delivery</h3>
+      <p class="text-sm text-gray-600">Quick doorstep delivery</p>
+    </div>
+
+    <div class="bg-white p-6 shadow rounded">
+      <i class="fa-solid fa-headset text-3xl text-indigo-600 mb-3"></i>
+      <h3 class="font-bold">24/7 Support</h3>
+      <p class="text-sm text-gray-600">We're here anytime</p>
+    </div>
+
+    <div class="bg-white p-6 shadow rounded">
+      <i class="fa-solid fa-shield text-3xl text-indigo-600 mb-3"></i>
+      <h3 class="font-bold">Secure Payment</h3>
+      <p class="text-sm text-gray-600">Encrypted transactions</p>
+    </div>
+
+    <div class="bg-white p-6 shadow rounded">
+      <i class="fa-solid fa-rotate-left text-3xl text-indigo-600 mb-3"></i>
+      <h3 class="font-bold">Easy Returns</h3>
+      <p class="text-sm text-gray-600">30 days return</p>
+    </div>
+
   </div>
+</section>
 
-  <div class="ml-auto relative cursor-pointer" onclick="toggleCart()">
-    <i class="fa-solid fa-cart-shopping text-xl"></i>
-    <span id="cartCount"
-      class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 rounded-full">0</span>
+
+  <!-- TRENDING -->
+  <section class="py-16">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center mb-6">Trending Now</h2>
+      <div id="trendingGrid"
+           class="grid sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+    </div>
+  </section>
+
+</div>
+
+<section id="productsSection" class="py-16 hidden">
+  <div class="container mx-auto px-6">
+
+    <h2 class="text-3xl font-bold text-center mb-6">Our Products</h2>
+
+    <!-- Categories -->
+    <div id="categories" class="flex flex-wrap justify-center gap-4 mb-8"></div>
+
+    <!-- Spinner -->
+    <div id="spinner" class="text-center hidden">
+      <i class="fa-solid fa-spinner fa-spin text-3xl text-indigo-600"></i>
+    </div>
+
+    <!-- Product Grid -->
+    <div id="productGrid" class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+
+  </div>
+</section>
+
+
+<!--MODAL-->
+<div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center p-4">
+  <div class="bg-white rounded-lg max-w-lg w-full p-6 relative">
+    <button onclick="closeModal()" class="absolute top-2 right-3 text-xl">&times;</button>
+    <div id="modalContent"></div>
   </div>
 </div>
 
+<!--CART SIDEBAR-->
+<div id="cartSidebar" class="fixed right-0 top-0 w-80 h-full bg-white shadow-lg p-6 transform translate-x-full transition duration-300 overflow-y-auto">
+  <h2 class="text-2xl font-bold mb-4">Your Cart</h2>
+  <div id="cartItems" class="mb-4"></div>
+  <div class="flex justify-between font-bold text-lg border-t pt-2">
+    <span>Total:</span>
+    <span id="totalPrice">$0.00</span></div>
+</div>
 
-<!-- ================= HERO ================= -->
-<section class="relative h-[450px] flex items-center justify-center text-center text-white">
-  <img src="https://images.unsplash.com/photo-1521335629791-ce4aec67dd53"
-       class="absolute w-full h-full object-cover">
-  <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-
-  <div class="relative z-10">
-    <h1 class="text-4xl md:text-5xl font-bold mb-4">Best Collection For You</h1>
-    <p class="mb-6">Discover premium fashion & electronics at SwiftCart.</p>
-    <a href="#products" class="btn bg-indigo-600 text-white border-none">
-      Shop Now
-    </a>
-  </div>
-</section>
+<div id="toast"
+  class="fixed top-5 right-5 bg-[#9f9393] text-white px-6 py-3 rounded shadow-lg hidden z-50">
+</div>
 
 
-<!-- ================= WHY CHOOSE US ================= -->
-<section class="py-16 text-center bg-gray-50">
-  <h2 class="text-3xl font-bold mb-8">Why Choose Us</h2>
+<!-- Footer -->
+  <footer class="bg-gray-900 text-gray-300 py-12 px-10">
+    <div class="grid md:grid-cols-4 gap-8">
 
-  <div class="grid md:grid-cols-4 gap-8 px-6 max-w-6xl mx-auto">
-    <div class="bg-white p-6 rounded-xl shadow">
-      <i class="fa-solid fa-truck-fast text-3xl text-indigo-600 mb-4"></i>
-      <h3 class="font-semibold">Fast Delivery</h3>
-      <p class="text-sm text-gray-500">Quick and reliable shipping.</p>
+      <div>
+        <h3 class="text-xl font-bold text-white mb-4">SwiftCart</h3>
+        <p>Your one-stop shop for fashion and lifestyle products.</p>
+      </div>
+
+      <div>
+        <h4 class="font-semibold text-white mb-3">Quick Links</h4>
+        <ul class="space-y-2">
+          <li><a>Home</a></li>
+          <li><a>Products</a></li>
+          <li><a>About</a></li>
+          <li><a>Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold text-white mb-3">Support</h4>
+        <ul class="space-y-2">
+          <li><a>FAQ</a></li>
+          <li><a>Shipping</a></li>
+          <li><a>Returns</a></li>
+          <li><a>Privacy Policy</a></li>
+        </ul>
+      </div>
+
+  <div class="container mx-auto px-6 text-center">
+    <h2 class="font-semibold text-white mb-3">SUBSCRIBE TO OUR NEWSLETTER</h2>
+    <p class="text-sm mb-3">The latest news, articles, and resources, sent to your inbox weekly</p>
+    <div class="flex">
+        <input type="email" placeholder="Enter your email" class="py-2 px-2 rounded text-black w-full" />
+        <button class="bg-[#0000D1] px-4 py-2 rounded ml-2 hover:bg-[#2E2EFF]">Subscribe</button>
     </div>
-
-    <div class="bg-white p-6 rounded-xl shadow">
-      <i class="fa-solid fa-headset text-3xl text-indigo-600 mb-4"></i>
-      <h3 class="font-semibold">24/7 Support</h3>
-      <p class="text-sm text-gray-500">Always here for you.</p>
-    </div>
-
-    <div class="bg-white p-6 rounded-xl shadow">
-      <i class="fa-solid fa-shield text-3xl text-indigo-600 mb-4"></i>
-      <h3 class="font-semibold">Secure Payment</h3>
-      <p class="text-sm text-gray-500">100% encrypted transactions.</p>
-    </div>
-
-    <div class="bg-white p-6 rounded-xl shadow">
-      <i class="fa-solid fa-rotate-left text-3xl text-indigo-600 mb-4"></i>
-      <h3 class="font-semibold">Easy Returns</h3>
-      <p class="text-sm text-gray-500">Hassle-free return policy.</p>
-    </div>
-  </div>
-</section>
-
-
+</div>
+</footer>
 
 <script src="app.js"></script>
 </body>
 </html>
+
+
