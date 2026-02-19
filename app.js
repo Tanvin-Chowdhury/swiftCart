@@ -108,11 +108,11 @@ function productCard(product) {
 
       <div class="flex justify-between mt-3">
         <button onclick="showDetails(${product.id})"
-          class="text-sm bg-gray-100 border-1 px-3 py-1 rounded w-[178px] h-[35px] hover:bg-gray-300 shadow"><i class="fa-regular fa-eye"></i>
+          class="text-sm bg-gray-100 border-1 px-3 py-1 rounded w-[175px] h-[35px] hover:bg-gray-300 shadow"><i class="fa-regular fa-eye"></i>
           Details
         </button>
         <button onclick="addToCart(${product.id})"
-          class="text-sm bg-[#0000D1] text-white px-3 py-1 rounded w-[178px] h-[35px] hover:bg-[#2E2EFF]">
+          class="text-sm bg-[#0000D1] text-white px-3 py-1 rounded w-[175px] h-[35px] hover:bg-[#2E2EFF]">
           <i class="fa-solid fa-cart-shopping mr-[5px]"></i>
           Add
         </button>
